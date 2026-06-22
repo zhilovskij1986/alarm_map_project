@@ -8,7 +8,7 @@ enum Region {
   zakarpattia(11, 'Закарпатська', 'Zakarpatska'),
   zaporizhzhia(12, 'Запорізька', 'Zaporizka'),
   ivanoFrankivsk(13, 'Івано-Франківська', 'Ivanj-frankivska'),
-  kyivRegion(14, 'Київська', 'Kyiv'),
+  kyivRegion(14, 'Київська', 'Kyivska'),
   kirovohrad(15, 'Кіровоградська', 'KIrovogradska'),
   luhansk(16, 'Луганська', 'Luhanska'),
   mykolaiv(17, 'Миколаївська', 'Mukolayivska'),

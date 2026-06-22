@@ -4,8 +4,11 @@ import 'package:alarm_map_project/features/alerts/domain/repositories/alerts_rep
 import 'package:alarm_map_project/features/alerts/presentation/screens/main_alerts_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('uk', null);
   runApp(const MyApp());
 }
 

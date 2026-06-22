@@ -3,6 +3,7 @@ import 'package:alarm_map_project/features/alerts/presentation/cubit/alerts_map_
 import 'package:alarm_map_project/features/alerts/presentation/cubit/alerts_map_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class AlertsMapScreen extends StatelessWidget {
   const AlertsMapScreen({super.key});
@@ -118,11 +119,7 @@ class AlertsMapScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final region = activeRegionsInMap[index];
                             final now = DateTime.now();
-                            final minutes = now.minute < 10
-                                ? '0${now.minute}'
-                                : '${now.minute}';
-                            final alertTime =
-                                'May 20, 2026, ${now.hour}:$minutes';
+                            final String alertTime = DateFormat('dd.MM.yyyy, HH:mm', 'uk').format(now);
 
                             return Container(
                               margin: const EdgeInsets.only(bottom: 12),

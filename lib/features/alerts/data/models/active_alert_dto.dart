@@ -9,19 +9,16 @@ class ActiveAlertDto {
   factory ActiveAlertDto.fromJson(Map<String, dynamic> json) {
     String defaultUid = (json['location_uid'] ?? '').toString();
     final oblastName = json['location_oblast'] as String?;
-    final String locationTitle =
-        (json['location_title'] as String? ?? '').toLowerCase();
+    final bool isAlarmActive = json['finished_at'] == null;
 
-    if (defaultUid == '31' ||
-        locationTitle.contains('м. київ') ||
-        locationTitle == 'київ') {
+    if (defaultUid == Region.kyivCity.uid.toString()) {
       return ActiveAlertDto(
         id: Region.kyivCity.uid.toString(),
-        isAlarm: json['finished_at'] == null,
+        isAlarm: isAlarmActive,
       );
     }
 
-    if (defaultUid == '14' ||
+    if (defaultUid == Region.kyivRegion.uid.toString() ||
         (oblastName != null && oblastName.toLowerCase().contains('київська'))) {
       return ActiveAlertDto(
         id: Region.kyivRegion.uid.toString(),
@@ -33,15 +30,19 @@ class ActiveAlertDto {
       final cleanName =
           oblastName.replaceAll(' область', '').trim().toLowerCase();
 
-      final matchedRegion = Region.values.firstWhere(
-        (r) => cleanName.contains(r.label.toLowerCase()),
-        orElse: () => Region.values.firstWhere(
-            (r) => r.uid.toString() == defaultUid,
-            orElse: () => Region.kyivRegion),
-      );
+      Region? matched;
+
+      for (final r in Region.values) {
+        if (cleanName.contains(r.label.toLowerCase()) || r.uid.toString() == defaultUid) {
+          matched = r;
+          break;
+        }
+      }
+
+      final String finalId = matched != null ? matched.uid.toString() : defaultUid;
 
       return ActiveAlertDto(
-        id: matchedRegion.uid.toString(),
+        id: finalId,
         isAlarm: json['finished_at'] == null,
       );
     }
