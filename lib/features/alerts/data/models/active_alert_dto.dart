@@ -7,7 +7,7 @@ class ActiveAlertDto {
   ActiveAlertDto({required this.id, required this.isAlarm});
 
   factory ActiveAlertDto.fromJson(Map<String, dynamic> json) {
-    String defaultUid = (json['location_uid'] ?? '').toString();
+    String defaultUid = json['location_uid'].toString();
     final oblastName = json['location_oblast'] as String?;
     final bool isAlarmActive = json['finished_at'] == null;
 
